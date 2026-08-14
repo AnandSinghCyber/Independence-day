@@ -1,107 +1,75 @@
-:root {
-  --saffron: #ff8c1a;
-  --green: #138a4b;
-  --navy: #123c70;
-  --ink: #172033;
-  --muted: #687083;
-  --paper: #fffdf9;
-  --line: rgba(18, 60, 112, .12);
+/* Tricolour floating particles */
+.tricolor-particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0.65;
+  z-index: 0;
+  animation: particleFloat linear infinite;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0;
-  color: var(--ink);
-  background:
-    radial-gradient(circle at 80% 12%, rgba(255,140,26,.11), transparent 24rem),
-    radial-gradient(circle at 10% 58%, rgba(19,138,75,.08), transparent 26rem),
-    var(--paper);
-  font-family: Inter, system-ui, sans-serif;
-  overflow-x: hidden;
+/* Falling Independence Day confetti */
+.confetti {
+  position: fixed;
+  top: -15px;
+  width: 7px;
+  height: 14px;
+  border-radius: 2px;
+  z-index: 999;
+  pointer-events: none;
+  animation: confettiFall linear forwards;
 }
 
-.sky { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-.spark {
-  position: absolute; width: 5px; height: 5px; border-radius: 50%;
-  background: var(--saffron); opacity: .7; animation: float 7s ease-in-out infinite;
+/* Scroll reveal */
+.section.hidden {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
-.s1 { left: 8%; top: 22%; animation-delay: -2s; }
-.s2 { right: 11%; top: 36%; background: var(--green); animation-delay: -4s; }
-.s3 { right: 22%; top: 10%; background: var(--navy); animation-delay: -1s; }
 
-.nav {
-  width: min(1180px, calc(100% - 40px));
-  margin: auto; padding: 22px 0;
-  display: flex; justify-content: space-between; align-items: center;
-  position: relative; z-index: 2;
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
 }
-.brand { display: flex; gap: 12px; align-items: center; text-decoration: none; color: var(--ink); }
-.brand-mark {
-  width: 42px; height: 42px; display: grid; place-items: center;
-  border-radius: 13px; color: white; font-weight: 800; font-size: 21px;
-  background: linear-gradient(150deg, var(--saffron) 0 33%, #fff 33% 66%, var(--green) 66%);
-  box-shadow: 0 8px 24px rgba(18,60,112,.12);
-}
-.brand strong { display: block; font-size: 14px; }
-.brand small { color: var(--muted); font-size: 11px; }
-.nav-link { color: var(--navy); font-weight: 700; font-size: 13px; text-decoration: none; }
 
-.hero {
-  width: min(1180px, calc(100% - 40px));
-  min-height: 680px; margin: auto;
-  display: grid; grid-template-columns: 1.15fr .85fr; gap: 40px;
-  align-items: center; position: relative; z-index: 1;
-}
-.eyebrow { color: var(--navy); letter-spacing: .18em; font-weight: 800; font-size: 12px; }
-.eyebrow span { display: inline-block; width: 22px; height: 2px; background: var(--saffron); vertical-align: middle; margin: 0 8px; }
-h1 {
-  margin: 20px 0 18px; max-width: 760px;
-  font-family: "Playfair Display", Georgia, serif;
-  font-size: clamp(58px, 8vw, 108px); line-height: .94; letter-spacing: -.055em;
-}
-h1 em { font-style: normal; display: block; background: linear-gradient(90deg, var(--saffron), #e87b12 45%, var(--green)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-.lead { max-width: 650px; color: var(--muted); font-size: 18px; line-height: 1.75; }
-.lead strong { color: var(--navy); }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0; }
-.btn { padding: 14px 20px; border-radius: 999px; text-decoration: none; font-weight: 800; font-size: 13px; transition: .25s ease; }
-.btn:hover { transform: translateY(-2px); }
-.primary { color: white; background: var(--navy); box-shadow: 0 12px 28px rgba(18,60,112,.2); }
-.ghost { color: var(--navy); border: 1px solid var(--line); background: rgba(255,255,255,.65); }
-.trust-row { display: flex; flex-wrap: wrap; gap: 10px; color: var(--muted); font-size: 12px; font-weight: 600; }
-.trust-row span { padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; background: white; }
+/* Particle animation */
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
 
-.chakra-wrap { display: grid; place-items: center; min-height: 460px; position: relative; }
-.chakra-wrap::before {
-  content: ""; position: absolute; width: 410px; height: 410px; border-radius: 50%;
-  border: 1px solid rgba(18,60,112,.08);
-  box-shadow: 0 0 0 28px rgba(255,140,26,.035), 0 0 0 58px rgba(19,138,75,.03);
-}
-.chakra {
-  width: 300px; height: 300px; border: 8px solid var(--navy); border-radius: 50%;
-  position: relative; animation: slowSpin 30s linear infinite;
-  box-shadow: 0 22px 70px rgba(18,60,112,.13);
-}
-.chakra::before { content: ""; position: absolute; inset: 18px; border: 3px solid var(--navy); border-radius: 50%; }
-.chakra i {
-  position: absolute; width: 3px; height: 50%; background: var(--navy);
-  left: calc(50% - 1.5px); top: 0; transform-origin: 50% 100%;
-}
-.chakra i:nth-of-type(1){transform:rotate(0)} .chakra i:nth-of-type(2){transform:rotate(15deg)}
-.chakra i:nth-of-type(3){transform:rotate(30deg)} .chakra i:nth-of-type(4){transform:rotate(45deg)}
-.chakra i:nth-of-type(5){transform:rotate(60deg)} .chakra i:nth-of-type(6){transform:rotate(75deg)}
-.chakra i:nth-of-type(7){transform:rotate(90deg)} .chakra i:nth-of-type(8){transform:rotate(105deg)}
-.chakra i:nth-of-type(9){transform:rotate(120deg)} .chakra i:nth-of-type(10){transform:rotate(135deg)}
-.chakra i:nth-of-type(11){transform:rotate(150deg)} .chakra i:nth-of-type(12){transform:rotate(165deg)}
-.chakra i:nth-of-type(13){transform:rotate(180deg)} .chakra i:nth-of-type(14){transform:rotate(195deg)}
-.chakra i:nth-of-type(15){transform:rotate(210deg)} .chakra i:nth-of-type(16){transform:rotate(225deg)}
-.chakra i:nth-of-type(17){transform:rotate(240deg)} .chakra i:nth-of-type(18){transform:rotate(255deg)}
-.chakra i:nth-of-type(19){transform:rotate(270deg)} .chakra i:nth-of-type(20){transform:rotate(285deg)}
-.chakra i:nth-of-type(21){transform:rotate(300deg)} .chakra i:nth-of-type(22){transform:rotate(315deg)}
-.chakra i:nth-of-type(23){transform:rotate(330deg)} .chakra i:nth-of-type(24){transform:rotate(345deg)}
-.chakra-center { position: absolute; width: 28px; height: 28px; background: var(--navy); border-radius: 50%; left: calc(50% - 14px); top: calc(50% - 14px); z-index: 2; }
-.chakra-caption { margin-top: 390px; position: absolute; color: var(--muted); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 800; }
+  20% {
+    opacity: 0.7;
+  }
 
+  50% {
+    transform: translateY(-40px) scale(1.3);
+  }
+
+  100% {
+    transform: translateY(-100px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Confetti animation */
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-20px) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform:
+      translateY(105vh)
+      translateX(80px)
+      rotate(720deg);
+    opacity: 0;
+  }
+}
 .flag-band { width: 100%; height: 12px; display: flex; position: relative; z-index: 2; }
 .flag-band > div { flex: 1; }
 .saffron { background: var(--saffron); }
